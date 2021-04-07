@@ -1,0 +1,8 @@
+FROM node:alpine
+#tao work directary
+WORKDIR /app
+
+
+COPY package.json ./
+
+RUN npm i

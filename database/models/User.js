@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const { Schema } = mongoose;
-// mongoose.set("runValidators", true);
+mongoose.set("runValidators", true);
 const UserSchema = new Schema(
   {
     name: {
@@ -12,13 +12,17 @@ const UserSchema = new Schema(
       type: String,
     },
     gender: {
-      type: ["male", "female", "gay"],
-      default: "gay",
+      type: ["male", "female"],
+      default: "male",
     },
     email: {
       type: String,
       required: [true, "email is required"],
       unique: [true],
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        `Please fill a valid email address`,
+      ],
     },
     password: {
       type: String,
@@ -27,7 +31,7 @@ const UserSchema = new Schema(
     },
     isActive: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   { timestamps: true }
